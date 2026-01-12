@@ -15,7 +15,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.room.Room
 import com.example.listofnotes.data.db.MyDatabase
-import com.example.listofnotes.ui.noteList.ListDetailLayout
+//import com.example.listofnotes.ui.noteList.ListDetailLayout
 import com.example.listofnotes.ui.theme.ListOfNotesTheme
 
 class MainActivity : ComponentActivity() {
@@ -40,7 +40,7 @@ class MainActivity : ComponentActivity() {
                 val users by db.getMyDao().getUsersFlow().collectAsState(emptyList())
 
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    ListDetailLayout(Modifier.padding(innerPadding), users, db)
+                    //ListDetailLayout(Modifier.padding(innerPadding), users, db)
 
                 }
             }

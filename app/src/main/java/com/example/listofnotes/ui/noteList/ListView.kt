@@ -37,6 +37,25 @@ import kotlin.random.Random
 
 
 
+@Composable
+fun NotesListView(state: ListViewState, onEvent: (ListEvent) -> Unit) {
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 @OptIn(ExperimentalMaterial3AdaptiveApi::class)
 @Composable
 fun ListDetailLayout(modifier: Modifier = Modifier, users: List<NoteEntity>, db: MyDatabase) {

@@ -5,7 +5,7 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "notes")
 data class NoteEntity(
-    // @ColumnInfo(name = "full_name")
+    val title: String,
     val text: String,
     val dateOfCreating: String,
     val dateOfEditing: String,
@@ -14,3 +14,5 @@ data class NoteEntity(
     @PrimaryKey(autoGenerate = true)
     var id: Int = 0
 }
+
+

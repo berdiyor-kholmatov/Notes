@@ -8,6 +8,7 @@ import kotlin.String
 class NoteMapper: Mapper<NoteEntity, Note> {
     override fun domainToModel(domain: Note): NoteEntity {
         val noteEntity = NoteEntity(
+                title = domain.title,
                 text = domain.text,
                 dateOfCreating = domain.dateOfCreating,
                 dateOfEditing = domain.dateOfEditing,
@@ -19,6 +20,7 @@ class NoteMapper: Mapper<NoteEntity, Note> {
 
     override fun modelToDomain(model: NoteEntity): Note {
         return Note(
+            title = model.title,
             text = model.text,
             dateOfCreating = model.dateOfCreating,
             dateOfEditing = model.dateOfEditing,
