@@ -38,23 +38,9 @@ import kotlin.random.Random
 
 
 @Composable
-fun NotesListView(state: ListViewState, onEvent: (ListEvent) -> Unit) {
+fun NotesListView(state: ListViewState, onEvent: (ListEvent) -> Unit, onNoteClick: (NoteEntity) -> Unit, addButtonClicked: () -> Unit) {
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 @OptIn(ExperimentalMaterial3AdaptiveApi::class)
 @Composable
@@ -106,7 +92,8 @@ fun ListDetailLayout(modifier: Modifier = Modifier, users: List<NoteEntity>, db:
                                     text = "Name ${Random.nextInt()}",
                                     dateOfCreating = "${Random.nextInt()}",
                                     dateOfEditing = "${Random.nextInt()}",
-                                    isDone = false
+                                    isDone = false,
+                                    title = ""
                                 )
                             )
                         }

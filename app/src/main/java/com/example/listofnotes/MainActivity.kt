@@ -20,9 +20,7 @@ import com.example.listofnotes.ui.theme.ListOfNotesTheme
 
 class MainActivity : ComponentActivity() {
 
-    data object NotesList
-    data class AddNote(val slug: String)
-    data class EditNote(val slug: String)
+
 
 
     val db by lazy {

@@ -1,4 +1,5 @@
 package com.example.listofnotes.ui.noteDetail
 
-class DetailViewState {
-}
+data class DetailViewState(
+    val id: Int = -1
+)

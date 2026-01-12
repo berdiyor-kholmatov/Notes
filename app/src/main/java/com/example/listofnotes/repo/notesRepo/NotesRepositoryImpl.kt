@@ -43,8 +43,10 @@ class NotesRepositoryImpl @Inject constructor(
         dao.deleteNoteById(noteId)
     }
 
-    override suspend fun updateNote(noteId: Int) {
-        val note = dao.getNoteById(noteId)
+    override suspend fun updateNote(note: Note) {
+        // bu yerni update qiladigan qilish kerak
+        val note = dao.getNoteById(note.id)
+        // avval id bo'yicha olish kerak emas, bittada update bo'lishi kerak
         dao.insert(note!!.copy(isDone = !note!!.isDone))
     }
 }
