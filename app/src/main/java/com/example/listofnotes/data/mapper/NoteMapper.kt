@@ -3,9 +3,10 @@ package com.example.listofnotes.data.mapper
 import com.example.listofnotes.data.db.NoteEntity
 import com.example.listofnotes.domain.model.Note
 import com.example.listofnotes.domain.util.Mapper
+import jakarta.inject.Inject
 import kotlin.String
 
-class NoteMapper: Mapper<NoteEntity, Note> {
+class NoteMapper @Inject constructor() : Mapper<NoteEntity, Note> {
     override fun domainToModel(domain: Note): NoteEntity {
         val noteEntity = NoteEntity(
                 title = domain.title,

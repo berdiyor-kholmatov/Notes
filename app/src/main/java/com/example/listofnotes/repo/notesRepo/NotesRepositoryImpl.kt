@@ -7,7 +7,6 @@ import com.example.listofnotes.domain.model.NoteTitle
 import jakarta.inject.Inject
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.onEach
 
 class NotesRepositoryImpl @Inject constructor(
     private val dao: MyDao,

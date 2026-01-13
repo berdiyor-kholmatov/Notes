@@ -8,6 +8,8 @@ import androidx.compose.runtime.remember
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.navigation3.runtime.NavEntry
 import androidx.navigation3.ui.NavDisplay
+import com.example.listofnotes.ui.noteAdd.NoteAddView
+import com.example.listofnotes.ui.noteAdd.NoteAddViewModel
 import com.example.listofnotes.ui.noteDetail.DetailViewModel
 import com.example.listofnotes.ui.noteDetail.NoteDetailView
 import com.example.listofnotes.ui.noteList.ListViewModel
@@ -55,8 +57,17 @@ fun NavigationDisplay(
                 }
 
                 is AddOrEditNote -> NavEntry(key) {
-                    key.id // bu note id yoki -1 agar  -1 bo'lsa yangi note yaratish kk
-
+                    if (key.id == -1) { // bu note id yoki -1 agar  -1 bo'lsa yangi note yaratish kk
+                        val noteAddViewModel: NoteAddViewModel = hiltViewModel()
+                        val state by noteAddViewModel.state.collectAsState()
+                        NoteAddView(state, noteAddViewModel::onEvent, onBack = {
+                            backStack.removeLastOrNull()
+                        })
+                    } else { // bu edit qilish kk
+                        val noteEditViewModel: NoteAddViewModel = hiltViewModel()
+                        val state by noteEditViewModel.state.collectAsState()
+                        NoteAddView(state, noteEditViewModel::onEvent)
+                    }
 
                 }
 
