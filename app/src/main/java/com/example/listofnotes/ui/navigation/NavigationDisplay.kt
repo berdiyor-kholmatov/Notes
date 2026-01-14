@@ -66,14 +66,17 @@ fun NavigationDisplay(
                             backStack.removeLastOrNull()
                         })
                     } else { // bu edit qilish kk
-                        val noteEditViewModel: NoteEditViewModel = hiltViewModel()
-                        noteEditViewModel.setNoteId(key.id)
+                        val noteEditViewModel: NoteEditViewModel =
+                            hiltViewModel<NoteEditViewModel, NoteEditViewModel.Factory>(
+                                creationCallback = { factory ->
+                                    factory.create(noteId = key.id)
+                                }
+                            )
                         val state by noteEditViewModel.state.collectAsState()
                         NoteEditView(state, noteEditViewModel::onEvent, onBack = {
                             backStack.removeLastOrNull()
                         })
                     }
-
                 }
 
                 else -> NavEntry(Unit) {

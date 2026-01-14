@@ -9,4 +9,5 @@ data class NoteEditState (
     val isButtonEnabled: Boolean = false,
     val isSaved: Boolean = false,
     val id: Int = -1,
+    val error : String = ""
 )

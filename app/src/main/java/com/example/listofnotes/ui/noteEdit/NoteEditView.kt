@@ -38,9 +38,9 @@ fun NoteEditView(
             },
         )
 
-        LaunchedEffect(key1 = state.isSaved){
+        LaunchedEffect(state){
             if (state.isSaved){
-                onEvent(NoteEditEvent.BackActionWillBeApplied)
+               // onEvent(NoteEditEvent.BackActionWillBeApplied)
                 onBack()
             }
         }
