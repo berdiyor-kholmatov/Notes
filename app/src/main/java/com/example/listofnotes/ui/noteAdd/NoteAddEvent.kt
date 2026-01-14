@@ -6,5 +6,5 @@ sealed class NoteAddEvent {
     data class TitleChanged(val title: String) : NoteAddEvent()
     data class TextChanged(val text: String) : NoteAddEvent()
     object SaveButtonClicked : NoteAddEvent()
-    object BackActionWillBeApplied : NoteAddEvent()
+    //object BackActionWillBeApplied : NoteAddEvent()
 }

@@ -3,6 +3,7 @@ package com.example.listofnotes.ui.noteAdd
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.listofnotes.domain.model.Note
+import com.example.listofnotes.domain.util.Event
 import com.example.listofnotes.repo.notesRepo.NotesRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -36,29 +37,31 @@ class NoteAddViewModel @Inject constructor(
 
             NoteAddEvent.SaveButtonClicked -> {
                 viewModelScope.launch {
-                    repository.addNote(Note(
-                        title = _state.value.title,
-                        text = _state.value.text,
-                        dateOfCreating = LocalDate.now().toString(),
-                        dateOfEditing = "",
-                        isDone = false
-                    ))
-                    _state.value = _state.value.copy(
-                        isSaved = true
+                    repository.addNote(
+                        Note(
+                            title = _state.value.title,
+                            text = _state.value.text,
+                            dateOfCreating = LocalDate.now().toString(),
+                            dateOfEditing = "",
+                            isDone = false
+                        )
+                    )
+                    _state.value = NoteAddState(
+                        isSaved = Event(true)
                     )
                 }
             }
 
-            NoteAddEvent.BackActionWillBeApplied -> {
-                val tmp = NoteAddState()
-                _state.value = _state.value.copy(
-                    title = tmp.title,
-                    text = tmp.text,
-                    isInputError = tmp.isInputError,
-                    isButtonEnabled = tmp.isButtonEnabled,
-                    isSaved = tmp.isSaved
-                )
-            }
+//            NoteAddEvent.BackActionWillBeApplied -> {
+//                val tmp = NoteAddState()
+//                _state.value = _state.value.copy(
+//                    title = tmp.title,
+//                    text = tmp.text,
+//                    isInputError = tmp.isInputError,
+//                    isButtonEnabled = tmp.isButtonEnabled,
+//                    isSaved = tmp.isSaved
+//                )
+//            }
         }
     }
 

@@ -15,8 +15,6 @@ fun NoteAddView(
     onEvent: (NoteAddEvent) -> Unit,
     onBack: () -> Unit = {},
 ) {
-
-
     Column( modifier = Modifier.systemBarsPadding()){
         TextField(
             value = state.title,
@@ -38,11 +36,8 @@ fun NoteAddView(
             },
         )
 
-        LaunchedEffect(key1 = state.isSaved){
-            if (state.isSaved){
-                onEvent(NoteAddEvent.BackActionWillBeApplied)
-                onBack()
-            }
+        if (state.isSaved.getContentIfNotHandled() == true) {
+            onBack()
         }
 
         Button(
