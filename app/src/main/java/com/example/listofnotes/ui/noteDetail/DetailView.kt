@@ -30,7 +30,7 @@ fun NoteDetailView(
 )
 {
     LazyColumn(
-        modifier = Modifier.systemBarsPadding(),
+        modifier = Modifier.systemBarsPadding().padding(8.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
     ){
         item{

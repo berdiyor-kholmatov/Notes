@@ -40,6 +40,7 @@ fun NoteAddView(
 
         LaunchedEffect(key1 = state.isSaved){
             if (state.isSaved){
+                onEvent(NoteAddEvent.BackActionWillBeApplied)
                 onBack()
             }
         }

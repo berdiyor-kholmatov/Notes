@@ -18,7 +18,6 @@ class NoteAddViewModel @Inject constructor(
     private val _state = MutableStateFlow(NoteAddState())
     val state = _state.asStateFlow()
 
-
     fun onEvent(event: NoteAddEvent) {
         when (event) {
             is NoteAddEvent.TitleChanged -> {
@@ -48,6 +47,17 @@ class NoteAddViewModel @Inject constructor(
                         isSaved = true
                     )
                 }
+            }
+
+            NoteAddEvent.BackActionWillBeApplied -> {
+                val tmp = NoteAddState()
+                _state.value = _state.value.copy(
+                    title = tmp.title,
+                    text = tmp.text,
+                    isInputError = tmp.isInputError,
+                    isButtonEnabled = tmp.isButtonEnabled,
+                    isSaved = tmp.isSaved
+                )
             }
         }
     }

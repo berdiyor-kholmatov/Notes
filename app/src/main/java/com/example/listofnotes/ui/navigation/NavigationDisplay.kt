@@ -12,6 +12,8 @@ import com.example.listofnotes.ui.noteAdd.NoteAddView
 import com.example.listofnotes.ui.noteAdd.NoteAddViewModel
 import com.example.listofnotes.ui.noteDetail.DetailViewModel
 import com.example.listofnotes.ui.noteDetail.NoteDetailView
+import com.example.listofnotes.ui.noteEdit.NoteEditView
+import com.example.listofnotes.ui.noteEdit.NoteEditViewModel
 import com.example.listofnotes.ui.noteList.ListViewModel
 import com.example.listofnotes.ui.noteList.NotesListView
 
@@ -45,7 +47,7 @@ fun NavigationDisplay(
                 is NoteDetail -> NavEntry(key) {
                     val id = key.id // bu note id
                     val noteDetailViewModel: DetailViewModel = hiltViewModel()
-                    noteDetailViewModel.setNoteId(id)
+                    noteDetailViewModel.setNoteId(id)       //am i needed to use flow<note?>, i think its not needed, as i call function that takes the actual information from db
                     val state by noteDetailViewModel.state.collectAsState()
                     NoteDetailView(
                         state = state,
@@ -64,9 +66,12 @@ fun NavigationDisplay(
                             backStack.removeLastOrNull()
                         })
                     } else { // bu edit qilish kk
-                        val noteEditViewModel: NoteAddViewModel = hiltViewModel()
+                        val noteEditViewModel: NoteEditViewModel = hiltViewModel()
+                        noteEditViewModel.setNoteId(key.id)
                         val state by noteEditViewModel.state.collectAsState()
-                        NoteAddView(state, noteEditViewModel::onEvent)
+                        NoteEditView(state, noteEditViewModel::onEvent, onBack = {
+                            backStack.removeLastOrNull()
+                        })
                     }
 
                 }
