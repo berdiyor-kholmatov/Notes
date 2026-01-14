@@ -3,6 +3,7 @@ package com.example.listofnotes.ui.noteEdit
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.listofnotes.domain.model.Note
+import com.example.listofnotes.domain.util.Event
 import com.example.listofnotes.repo.notesRepo.NotesRepository
 import com.example.listofnotes.ui.noteAdd.NoteAddState
 import dagger.assisted.Assisted
@@ -21,7 +22,11 @@ class NoteEditViewModel @AssistedInject constructor(
     private val repository: NotesRepository,
     @Assisted val noteId: Int
 ) : ViewModel() {
-    private val _state = MutableStateFlow(NoteEditState())
+    private val _state = MutableStateFlow(
+        NoteEditState(
+            isSaved = Event(false)
+        )
+    )
     val state = _state.asStateFlow()
 
     init {
@@ -57,21 +62,21 @@ class NoteEditViewModel @AssistedInject constructor(
                         )
                     )
                     _state.value = _state.value.copy(
-                        isSaved = true
+                        isSaved = Event(true)
                     )
                 }
             }
 
-            NoteEditEvent.BackActionWillBeApplied -> {
-                val tmp = NoteAddState()
-                _state.value = _state.value.copy(
-                    title = tmp.title,
-                    text = tmp.text,
-                    isInputError = tmp.isInputError,
-                    isButtonEnabled = tmp.isButtonEnabled,
-                    isSaved = tmp.isSaved
-                )
-            }
+//            NoteEditEvent.BackActionWillBeApplied -> {
+//                val tmp = NoteAddState()
+//                _state.value = _state.value.copy(
+//                    title = tmp.title,
+//                    text = tmp.text,
+//                    isInputError = tmp.isInputError,
+//                    isButtonEnabled = tmp.isButtonEnabled,
+//                    isSaved = tmp.isSaved
+//                )
+//            }
         }
     }
 
@@ -97,7 +102,7 @@ class NoteEditViewModel @AssistedInject constructor(
 
     @AssistedFactory
     interface Factory {
-        fun create(noteId : Int): NoteEditViewModel
+        fun create(noteId: Int): NoteEditViewModel
     }
 
 }

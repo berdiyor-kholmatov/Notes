@@ -6,7 +6,6 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 
 @Composable
@@ -17,7 +16,7 @@ fun NoteEditView(
 ) {
 
 
-    Column( modifier = Modifier.systemBarsPadding()){
+    Column(modifier = Modifier.systemBarsPadding()) {
         TextField(
             value = state.title,
             onValueChange = {
@@ -34,21 +33,18 @@ fun NoteEditView(
                 onEvent(NoteEditEvent.TextChanged(it))
             },
             placeholder = {
-                Text(text  = "Enter the text")
+                Text(text = "Enter the text")
             },
         )
 
-        LaunchedEffect(state){
-            if (state.isSaved){
-               // onEvent(NoteEditEvent.BackActionWillBeApplied)
-                onBack()
-            }
+        if (state.isSaved.getContentIfNotHandled() == true) {
+            onBack()
         }
 
         Button(
             onClick = {
                 onEvent(NoteEditEvent.SaveButtonClicked)
-            } ,
+            },
             enabled = state.isButtonEnabled
         ) {
             Text(text = "Save")
