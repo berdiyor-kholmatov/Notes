@@ -13,8 +13,6 @@ interface MyDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(noteEntity: NoteEntity)
 
-
-
     @Query("SELECT * FROM notes")
      fun observeNotes(): Flow<List<NoteEntity>>
 

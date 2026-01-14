@@ -43,9 +43,8 @@ class NotesRepositoryImpl @Inject constructor(
     }
 
     override suspend fun updateNote(note: Note) {
-        // bu yerni update qiladigan qilish kerak
-        val note = dao.getNoteById(note.id)
-        // avval id bo'yicha olish kerak emas, bittada update bo'lishi kerak
-        dao.insert(note!!.copy(isDone = !note!!.isDone))
+        val entity = mapper.domainToModel(note)
+        dao.insert(entity)
+        // bu notog'ri update sql query yozib update qilish kerak
     }
 }

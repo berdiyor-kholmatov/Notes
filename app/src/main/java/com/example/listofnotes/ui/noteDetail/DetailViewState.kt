@@ -6,4 +6,5 @@ data class DetailViewState(
     val text: String = "",
     val dateOfCreating: String = "",
     val dateOfEditing: String = "",
+    val error: String = ""
 )

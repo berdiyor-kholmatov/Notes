@@ -29,15 +29,18 @@ class DetailViewModel @Inject constructor(
 
         // Shu yerda db dan to'liq note olasiz
 
-        val note = repository.getNoteById(id).onEach {
+        repository.getNoteById(id).onEach {
             if (it == null) {
-                //something went wrong
+                _state.value = _state.value.copy(
+                    error = "Note not found"
+                )
+                return@onEach
             }
             _state.value = _state.value.copy(
-                title = it?.title ?: "",
-                text = it?.text ?: "",
-                dateOfCreating = it?.dateOfCreating ?: "",
-                dateOfEditing = it?.dateOfEditing ?: "",
+                title = it.title,
+                text = it.text,
+                dateOfCreating = it.dateOfCreating,
+                dateOfEditing = it.dateOfEditing,
             )
         }.launchIn(viewModelScope)
 

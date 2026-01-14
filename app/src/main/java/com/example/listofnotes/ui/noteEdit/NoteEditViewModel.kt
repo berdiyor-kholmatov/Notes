@@ -41,12 +41,13 @@ class NoteEditViewModel @Inject constructor(
 
             NoteEditEvent.SaveButtonClicked -> {
                 viewModelScope.launch {
-                    repository.addNote(Note(
+                    repository.updateNote(Note(
                         title = _state.value.title,
                         text = _state.value.text,
                         dateOfCreating = LocalDate.now().toString(),
                         dateOfEditing = "",
-                        isDone = false
+                        isDone = false,
+                        id = _state.value.id
                     ))
                     _state.value = _state.value.copy(
                         isSaved = true
