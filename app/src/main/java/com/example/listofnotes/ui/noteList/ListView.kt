@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.systemBarsPadding
@@ -40,6 +41,7 @@ import com.example.listofnotes.R
 import com.example.listofnotes.data.db.MyDatabase
 import com.example.listofnotes.data.db.NoteEntity
 import com.example.listofnotes.domain.model.NoteTitle
+import com.example.listofnotes.ui.theme.outlineDark
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -53,13 +55,18 @@ fun NotesListView(state: ListViewState, onEvent: (ListEvent) -> Unit, onNoteClic
 
     LazyColumn(
         modifier = Modifier.systemBarsPadding()
+    ) {
 
-    ){
-        item{
-            Row(){
+        stickyHeader {
+            Row(modifier = Modifier
+                .background(MaterialTheme.colorScheme.primaryContainer),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.Center
+            ) {
                 Spacer(modifier = Modifier.weight(1f))
                 Text(text = "Notes", modifier = Modifier
                     .weight(1f),
+                    color = MaterialTheme.colorScheme.onPrimaryContainer,
                     fontSize = 24.sp
                 )
                 IconButton(
@@ -71,7 +78,7 @@ fun NotesListView(state: ListViewState, onEvent: (ListEvent) -> Unit, onNoteClic
                     Icon(
                         painter = painterResource(id = R.drawable.outline_add_circle_24),
                         contentDescription = null,
-                        tint = Color.Black
+                        tint =  MaterialTheme.colorScheme.onPrimaryContainer,
                     )
                 }
 
@@ -79,7 +86,11 @@ fun NotesListView(state: ListViewState, onEvent: (ListEvent) -> Unit, onNoteClic
         }
 
         items(state.notes){ note ->
-            Row(){
+            Row(modifier = Modifier
+                .background(MaterialTheme.colorScheme.secondaryContainer),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.Center
+            ) {
                 IconButton(
                     modifier = Modifier
                         .size(56.dp)
@@ -93,11 +104,11 @@ fun NotesListView(state: ListViewState, onEvent: (ListEvent) -> Unit, onNoteClic
                             else
                                 R.drawable.circle_24dp),
                         contentDescription = null,
-                        tint = Color.Black,
+                        tint = MaterialTheme.colorScheme.onSecondaryContainer,
                         modifier = Modifier.size(24.dp)
                     )
                 }
-                TextButton({ onNoteClick(note) }, content = {Text(text = note.title, fontSize = 20.sp)}, modifier = Modifier
+                TextButton({ onNoteClick(note) }, content = {Text(text = note.title, fontSize = 20.sp, color = MaterialTheme.colorScheme.onSecondaryContainer)}, modifier = Modifier
                     .weight(1f))
 
 
@@ -110,12 +121,20 @@ fun NotesListView(state: ListViewState, onEvent: (ListEvent) -> Unit, onNoteClic
                     Icon(
                         painter = painterResource(id = R.drawable.delete_24dp),
                         contentDescription = null,
-                        tint = Color.Black,
+                        tint = MaterialTheme.colorScheme.onSecondaryContainer,
                         modifier = Modifier.size(24.dp)
 
                     )
                 }
+
             }
+
+            Spacer(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(1.dp)
+                    .background(MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.8f))
+            )
         }
     }
 }
