@@ -52,6 +52,9 @@ fun NavigationDisplay(
                     NoteDetailView(
                         state = state,
                         onEvent = noteDetailViewModel::onEvent,
+                        onBack = {
+                            backStack.removeLastOrNull()
+                        },
                         onEditButtonClicked = {
                             backStack.add(AddOrEditNote(id))
                         }

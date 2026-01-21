@@ -31,6 +31,7 @@ fun NoteDetailView(
     state: DetailViewState,
     onEvent: (DetailEvent) -> Unit,
     onEditButtonClicked: () -> Unit,
+    onBack: () -> Unit = {},
 )
 {
     LazyColumn(
@@ -48,7 +49,7 @@ fun NoteDetailView(
                     modifier = Modifier
                         .size(56.dp)
                         .padding(8.dp),
-                    onClick = onEditButtonClicked
+                    onClick = onBack
                 ) {
                     Icon(
                         painter = painterResource(id = R.drawable.outline_arrow_back_24),
@@ -81,9 +82,10 @@ fun NoteDetailView(
             Column ( modifier = Modifier.fillMaxSize()
                 .padding(16.dp)
             ) {
-                Text(text = state.text, modifier = Modifier.weight(1f))
-                Text(text = "Date of creating: ${state.dateOfCreating}", modifier = Modifier.weight(1f))
-                Text(text = "Date od last editing: ${state.dateOfEditing}", modifier = Modifier.weight(1f))
+                Text(text = state.text)
+                Spacer(modifier = Modifier.weight(1f))
+                Text(text = "Date of creating: ${state.dateOfCreating}")
+                Text(text = "Date od last editing: ${state.dateOfEditing}")
             }
 
         }
