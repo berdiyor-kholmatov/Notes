@@ -46,4 +46,8 @@ class NotesRepositoryImpl @Inject constructor(
         val entity = mapper.domainToModel(note)
         dao.update(entity)
     }
+
+    override suspend fun getCurrentValueOfNoteById(noteId: Int): Note? {
+        return dao.getCurrentValueOfNoteById(noteId)?.let { mapper.modelToDomain(it) }
+    }
 }

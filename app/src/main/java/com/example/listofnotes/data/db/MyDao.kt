@@ -28,4 +28,7 @@ interface MyDao {
 
     @Update(onConflict = OnConflictStrategy.REPLACE)
     suspend fun update(noteEntity: NoteEntity)
+
+    @Query("SELECT * FROM notes WHERE id = :id")
+    suspend fun getCurrentValueOfNoteById(id: Int): NoteEntity?
 }

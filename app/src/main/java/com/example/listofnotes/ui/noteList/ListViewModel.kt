@@ -35,9 +35,11 @@ class ListViewModel @Inject constructor (
                 }
             }
             is ListEvent.IsDoneButtonClicked -> {
-                  repository.getNoteById(event.noteId).onEach { note ->
-                        repository.updateNote(note!!.copy(isDone = !note.isDone))
-                  }.launchIn(viewModelScope)
+                viewModelScope.launch {
+                    val note = repository.getCurrentValueOfNoteById(event.noteId)
+                    repository.updateNote(note!!.copy(isDone = !note.isDone))
+                }
+
             }
         }
 
