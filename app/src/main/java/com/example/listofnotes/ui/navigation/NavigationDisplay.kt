@@ -33,6 +33,7 @@ fun NavigationDisplay(
         entryProvider = { key ->
             when (key) {
                 is NotesList -> NavEntry(key) {
+
                     val notesListViewModel: ListViewModel = hiltViewModel()
                     val state by notesListViewModel.state.collectAsState()
                     NotesListView(state, notesListViewModel::onEvent, onNoteClick = {

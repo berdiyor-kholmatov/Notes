@@ -1,11 +1,13 @@
 package com.example.listofnotes.ui.noteAdd
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.material3.Button
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
@@ -25,6 +27,7 @@ fun NoteAddView(
         TextField(
             value = state.title,
             modifier = Modifier.fillMaxWidth()
+                .background(MaterialTheme.colorScheme.secondaryContainer)
                 .padding(bottom = 16.dp),
             onValueChange = {
                 onEvent(NoteAddEvent.TitleChanged(it))
@@ -37,6 +40,7 @@ fun NoteAddView(
         TextField(
             value = state.text,
             modifier = Modifier.fillMaxWidth()
+                .background(MaterialTheme.colorScheme.secondaryContainer)
                 .padding(bottom = 16.dp)
                 .weight(1f),
             onValueChange = {
