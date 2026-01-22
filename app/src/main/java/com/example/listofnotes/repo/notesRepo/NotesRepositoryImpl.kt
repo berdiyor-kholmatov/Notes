@@ -26,7 +26,7 @@ class NotesRepositoryImpl @Inject constructor(
     }
 
     override fun getNoteById(id: Int): Flow<Note?> {
-        return dao.getUserById(id)
+        return dao.getNoteById(id)
             .map { entity ->
                 entity?.let {
                     mapper.modelToDomain(it)
@@ -44,7 +44,6 @@ class NotesRepositoryImpl @Inject constructor(
 
     override suspend fun updateNote(note: Note) {
         val entity = mapper.domainToModel(note)
-        dao.insert(entity)
-        // bu notog'ri update sql query yozib update qilish kerak
+        dao.update(entity)
     }
 }

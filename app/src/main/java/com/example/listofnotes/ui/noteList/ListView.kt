@@ -59,6 +59,8 @@ import kotlin.random.Random
 import androidx.compose.material3.SwipeToDismissBoxValue.StartToEnd
 import androidx.compose.material3.SwipeToDismissBoxValue.EndToStart
 import androidx.compose.material3.SwipeToDismissBoxValue.Settled
+import androidx.compose.ui.draw.drawBehind
+import androidx.compose.ui.graphics.lerp
 import com.example.listofnotes.ui.experementalSwipes.TodoItem
 
 
@@ -133,12 +135,7 @@ fun NotesListView(state: ListViewState, onEvent: (ListEvent) -> Unit, onNoteClic
                     .background(MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.8f))
             )
         }
-
-
-
-
-
-
+/*
 //        items(state.notes){ note ->
 //            Row(modifier = Modifier
 //                .background(MaterialTheme.colorScheme.secondaryContainer),
@@ -190,6 +187,7 @@ fun NotesListView(state: ListViewState, onEvent: (ListEvent) -> Unit, onNoteClic
 //                    .background(MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.8f))
 //            )
 //        }
+ */
     }
 }
 
@@ -223,7 +221,14 @@ fun NoteListItem(
                         contentDescription = if (noteItem.isDone) "Done" else "Not done",
                         modifier = Modifier
                             .fillMaxSize()
-                            .background(Color.Blue)
+//                            .drawBehind {
+//                                drawRect(lerp(Color.LightGray, Color.Blue, swipeToDismissBoxState.progress))
+//                            }
+                            .background(lerp(
+                                Color.LightGray,
+                                Color.Blue,
+                                swipeToDismissBoxState.progress
+                            ))
                             .wrapContentSize(Alignment.CenterStart)
                             .padding(12.dp),
                         tint = Color.White
@@ -235,7 +240,11 @@ fun NoteListItem(
                         contentDescription = "Remove item",
                         modifier = Modifier
                             .fillMaxSize()
-                            .background(Color.Red)
+                            .background(lerp(
+                                Color.LightGray,
+                                Color.Red,
+                                swipeToDismissBoxState.progress
+                            ))
                             .wrapContentSize(Alignment.CenterEnd)
                             .padding(12.dp),
                         tint = Color.White
