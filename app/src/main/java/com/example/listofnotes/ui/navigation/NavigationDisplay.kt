@@ -16,6 +16,8 @@ import com.example.listofnotes.ui.noteEdit.NoteEditView
 import com.example.listofnotes.ui.noteEdit.NoteEditViewModel
 import com.example.listofnotes.ui.noteList.ListViewModel
 import com.example.listofnotes.ui.noteList.NotesListView
+import com.example.listofnotes.ui.scenes.ListDetailScene
+import com.example.listofnotes.ui.scenes.rememberListDetailSceneStrategy
 
 
 data object NotesList
@@ -30,9 +32,14 @@ fun NavigationDisplay(
     NavDisplay(
         backStack = backStack,
         onBack = { backStack.removeLastOrNull() },
+        sceneStrategy = rememberListDetailSceneStrategy(),
+        //entries =
         entryProvider = { key ->
             when (key) {
-                is NotesList -> NavEntry(key) {
+                is NotesList -> NavEntry(
+                    key = key,
+                    metadata = ListDetailScene.listPane()
+                ) {
 
                     val notesListViewModel: ListViewModel = hiltViewModel()
                     val state by notesListViewModel.state.collectAsState()
@@ -45,7 +52,10 @@ fun NavigationDisplay(
 
                 }
 
-                is NoteDetail -> NavEntry(key) {
+                is NoteDetail -> NavEntry(
+                    key = key,
+                    metadata = ListDetailScene.detailPane()
+                ) {
                     val id = key.id // bu note id
                     val noteDetailViewModel: DetailViewModel = hiltViewModel()
                     noteDetailViewModel.setNoteId(id)       //am i needed to use flow<note?>, i think its not needed, as i call function that takes the actual information from db
@@ -74,7 +84,8 @@ fun NavigationDisplay(
                             hiltViewModel<NoteEditViewModel, NoteEditViewModel.Factory>(
                                 creationCallback = { factory ->
                                     factory.create(noteId = key.id)
-                                }
+                                },
+                                key = key.id.toString()
                             )
                         val state by noteEditViewModel.state.collectAsState()
                         NoteEditView(state, noteEditViewModel::onEvent, onBack = {
