@@ -81,4 +81,7 @@ dependencies {
     implementation("com.google.dagger:hilt-android:2.57.2")
     ksp("com.google.dagger:hilt-android-compiler:2.57.2")
     implementation(libs.androidx.hilt.navigation.compose)
+
+    //Compose-Markdown
+    implementation("com.github.jeziellago:compose-markdown:0.5.8")
 }

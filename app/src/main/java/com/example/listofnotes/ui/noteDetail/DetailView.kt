@@ -25,6 +25,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.listofnotes.R
+import dev.jeziellago.compose.markdowntext.MarkdownText
 
 @Composable
 fun NoteDetailView(
@@ -82,7 +83,9 @@ fun NoteDetailView(
             Column ( modifier = Modifier.fillMaxSize()
                 .padding(16.dp)
             ) {
-                Text(text = state.text)
+
+                MarkdownText(markdown = state.text)
+                //Text(text = state.text)
                 Spacer(modifier = Modifier.weight(1f))
                 Text(text = "Date of creating: ${state.dateOfCreating}")
                 Text(text = "Date od last editing: ${state.dateOfEditing}")
