@@ -45,7 +45,7 @@ import androidx.compose.material3.SwipeToDismissBoxValue.EndToStart
 import androidx.compose.material3.SwipeToDismissBoxValue.Settled
 import androidx.compose.material3.VerticalDivider
 import androidx.compose.ui.graphics.lerp
-
+import androidx.compose.ui.res.stringResource
 
 
 @Composable
@@ -80,7 +80,7 @@ fun NotesListView(state: ListViewState, onEvent: (ListEvent) -> Unit, onNoteClic
 
                     Spacer(modifier = Modifier.weight(1f))
 
-                    Text(text = "Notes", modifier = Modifier,
+                    Text(text = stringResource(R.string.notes), modifier = Modifier,
                         color = MaterialTheme.colorScheme.onPrimaryContainer,
                         fontSize = 24.sp
                     )
