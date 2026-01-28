@@ -13,7 +13,9 @@ import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import com.example.listofnotes.R
 
 @Composable
 fun NoteAddView(
@@ -33,7 +35,7 @@ fun NoteAddView(
                 onEvent(NoteAddEvent.TitleChanged(it))
             },
             placeholder = {
-                Text(text = "Title")
+                Text(text = stringResource(R.string.title_placeholder))
             },
         )
 
@@ -47,7 +49,7 @@ fun NoteAddView(
                 onEvent(NoteAddEvent.TextChanged(it))
             },
             placeholder = {
-                Text(text  = "Enter the text")
+                Text(text  = stringResource(R.string.content_placeholder))
             },
         )
 
@@ -65,7 +67,7 @@ fun NoteAddView(
 
             enabled = state.isButtonEnabled
         ) {
-            Text(text = "Save")
+            Text(text = stringResource(R.string.save_button))
         }
 
 
