@@ -33,7 +33,6 @@ fun NavigationDisplay(
         backStack = backStack,
         onBack = { backStack.removeLastOrNull() },
         sceneStrategy = rememberListDetailSceneStrategy(),
-        //entries =
         entryProvider = { key ->
             when (key) {
                 is NotesList -> NavEntry(

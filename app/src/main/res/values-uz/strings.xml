@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">Qaytlar Ro\'yhati</string>
     <string name="notes">Qaydlar</string>
+    <string name="title_placeholder">Sarlavha</string>
+    <string name="content_placeholder">Matnni kiriting</string>
+    <string name="save_button">Saqlash</string>
 </resources>
