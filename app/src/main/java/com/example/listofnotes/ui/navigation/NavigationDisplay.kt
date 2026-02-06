@@ -42,7 +42,7 @@ fun NavigationDisplay(
 
                     val notesListViewModel: ListViewModel = hiltViewModel()
                     val state by notesListViewModel.state.collectAsState()
-                    NotesListView(state, notesListViewModel::onEvent, onNoteClick = {
+                    NotesListView(state, notesListViewModel.notes ,notesListViewModel::onEvent, onNoteClick = {
                         backStack.add(NoteDetail(it.id))
                     }, addButtonClicked = {
                         backStack.add(AddOrEditNote(-1))

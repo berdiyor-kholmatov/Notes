@@ -1,5 +1,9 @@
 package com.example.listofnotes.repo.notesRepo
 
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.PagingData
+import androidx.paging.map
 import com.example.listofnotes.data.db.MyDao
 import com.example.listofnotes.data.mapper.NoteMapper
 import com.example.listofnotes.domain.model.Note
@@ -24,6 +28,15 @@ class NotesRepositoryImpl @Inject constructor(
     override fun observeNoteTitles(): Flow<List<NoteTitle>> {
         return dao.getNoteTitles()
     }
+
+
+    override fun observePaginatedNotes(): Flow<PagingData<NoteTitle>> {
+         return Pager(
+            config = PagingConfig(pageSize = 10),
+            pagingSourceFactory = { dao.observePaginatedNotes() }
+        ).flow
+    }
+
 
     override fun getNoteById(id: Int): Flow<Note?> {
         return dao.getNoteById(id)

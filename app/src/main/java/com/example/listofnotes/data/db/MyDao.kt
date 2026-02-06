@@ -1,5 +1,6 @@
 package com.example.listofnotes.data.db
 
+import androidx.paging.PagingSource
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
@@ -19,6 +20,10 @@ interface MyDao {
 
     @Query("SELECT * FROM notes WHERE id = :id")
     fun getNoteById(id: Int): Flow<NoteEntity?>
+
+    @Query("SELECT id, title, dateOfCreating, isDone FROM notes")
+    fun observePaginatedNotes(): PagingSource<Int, NoteTitle>
+
 
     @Query("DELETE FROM notes WHERE id = :id")
     suspend fun deleteNoteById(id: Int)

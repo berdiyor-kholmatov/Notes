@@ -2,6 +2,7 @@ package com.example.listofnotes.ui.noteList
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.paging.cachedIn
 import com.example.listofnotes.repo.notesRepo.NotesRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
@@ -15,17 +16,18 @@ import kotlinx.coroutines.launch
 class ListViewModel @Inject constructor (
     private val repository: NotesRepository
 ) : ViewModel() {
+
+    val notes = repository.observePaginatedNotes().cachedIn(viewModelScope)
     private val _state = MutableStateFlow(ListViewState())
     val state = _state.asStateFlow()
 
-    init {
-        repository.observeNoteTitles().onEach {
-                _state.value = _state.value.copy(
-                    notes = it
-                )
-            }.launchIn(viewModelScope)
-    }
-
+//    init {
+//        repository.observeNoteTitles().onEach {
+//                _state.value = _state.value.copy(
+//                    notes = it
+//                )
+//            }.launchIn(viewModelScope)
+//    }
 
     fun onEvent(event: ListEvent){
         when(event) {

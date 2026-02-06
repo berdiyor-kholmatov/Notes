@@ -46,10 +46,16 @@ import androidx.compose.material3.SwipeToDismissBoxValue.Settled
 import androidx.compose.material3.VerticalDivider
 import androidx.compose.ui.graphics.lerp
 import androidx.compose.ui.res.stringResource
+import androidx.paging.PagingData
+import androidx.paging.compose.collectAsLazyPagingItems
+import kotlinx.coroutines.flow.Flow
 
 
 @Composable
-fun NotesListView(state: ListViewState, onEvent: (ListEvent) -> Unit, onNoteClick: (NoteTitle) -> Unit, addButtonClicked: () -> Unit) {
+fun NotesListView(state: ListViewState, pagingFlow: Flow<PagingData<NoteTitle>>, onEvent: (ListEvent) -> Unit, onNoteClick: (NoteTitle) -> Unit, addButtonClicked: () -> Unit) {
+
+    val notes = pagingFlow.collectAsLazyPagingItems()
+
 
     Row(
         modifier = Modifier.systemBarsPadding().fillMaxSize()
@@ -104,9 +110,11 @@ fun NotesListView(state: ListViewState, onEvent: (ListEvent) -> Unit, onNoteClic
             }
 
             items(
-                items = state.notes,
-                key = { it.id }
-            ) { note ->
+                count = notes.itemCount,
+                key = { notes[it]!!.id },
+                contentType = { notes[it]!!::class }
+            ){index: Int ->
+                val note = notes[index]!!   //Im not sure about it
                 NoteListItem(
                     noteItem = note,
                     onNoteItemClick = onNoteClick,
@@ -121,7 +129,30 @@ fun NotesListView(state: ListViewState, onEvent: (ListEvent) -> Unit, onNoteClic
                         .padding(horizontal = 6.dp)
                         .background(MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.8f))
                 )
+
             }
+
+
+
+//            items(
+//                items = state.notes,
+//                key = { it.id }
+//            ) { note ->
+//                NoteListItem(
+//                    noteItem = note,
+//                    onNoteItemClick = onNoteClick,
+//                    onToggleDone = { onEvent(ListEvent.IsDoneButtonClicked(it.id)) },
+//                    onRemove = { onEvent(ListEvent.DeleteButtonClicked(it.id)) },
+//                    modifier = Modifier.animateItem()
+//                )
+//                Spacer(
+//                    modifier = Modifier
+//                        .fillMaxWidth()
+//                        .height(1.dp)
+//                        .padding(horizontal = 6.dp)
+//                        .background(MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.8f))
+//                )
+//            }
         }
 
         Box(

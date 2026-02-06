@@ -72,11 +72,12 @@ dependencies {
     implementation("androidx.room:room-runtime:$room_version")
     ksp("androidx.room:room-compiler:$room_version")
     implementation("androidx.room:room-ktx:${room_version}")
+    implementation("androidx.room:room-paging:${room_version}")
 
-    // dagger
-//    implementation(libs.dagger.hilt.android)
-//    ksp(libs.dagger.hilt.android.compiler)
-//    implementation(libs.androidx.hilt.navigation.compose)
+    //dagger
+    implementation(libs.dagger.hilt.android)
+    ksp(libs.dagger.hilt.android.compiler)
+    implementation(libs.androidx.hilt.navigation.compose)
 
     implementation("com.google.dagger:hilt-android:2.57.2")
     ksp("com.google.dagger:hilt-android-compiler:2.57.2")
@@ -84,4 +85,7 @@ dependencies {
 
     //Compose-Markdown
     implementation("com.github.jeziellago:compose-markdown:0.5.8")
+
+    implementation("androidx.paging:paging-runtime:3.4.0")
+    implementation("androidx.paging:paging-compose:3.4.0")
 }
