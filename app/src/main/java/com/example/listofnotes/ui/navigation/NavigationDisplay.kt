@@ -39,16 +39,13 @@ fun NavigationDisplay(
                     key = key,
                     metadata = ListDetailScene.listPane()
                 ) {
-
                     val notesListViewModel: ListViewModel = hiltViewModel()
                     val state by notesListViewModel.state.collectAsState()
-                    NotesListView(state, notesListViewModel.notes ,notesListViewModel::onEvent, onNoteClick = {
+                    NotesListView(state,  notesListViewModel::onEvent, onNoteClick = {
                         backStack.add(NoteDetail(it.id))
                     }, addButtonClicked = {
                         backStack.add(AddOrEditNote(-1))
                     })
-
-
                 }
 
                 is NoteDetail -> NavEntry(

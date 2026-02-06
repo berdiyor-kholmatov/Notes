@@ -255,8 +255,7 @@ val unspecified_scheme = ColorFamily(
 
 @Composable
 fun ListOfNotesTheme(
-    darkTheme: Boolean = isSystemInDarkTheme(),
-    // Dynamic color is available on Android 12+
+    darkTheme: Boolean = false,
     dynamicColor: Boolean = false,
     content: @Composable() () -> Unit
 ) {

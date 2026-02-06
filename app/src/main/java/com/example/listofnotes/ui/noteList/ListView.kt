@@ -18,6 +18,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.magnifier
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Clear
@@ -52,16 +53,16 @@ import kotlinx.coroutines.flow.Flow
 
 
 @Composable
-fun NotesListView(state: ListViewState, pagingFlow: Flow<PagingData<NoteTitle>>, onEvent: (ListEvent) -> Unit, onNoteClick: (NoteTitle) -> Unit, addButtonClicked: () -> Unit) {
-
-    val notes = pagingFlow.collectAsLazyPagingItems()
-
-
+fun NotesListView(state: ListViewState, onEvent: (ListEvent) -> Unit, onNoteClick: (NoteTitle) -> Unit, addButtonClicked: () -> Unit) {
+    val notes = state.notes.collectAsLazyPagingItems()
     Row(
         modifier = Modifier.systemBarsPadding().fillMaxSize()
     ) {
+        val listState = rememberLazyListState()
+
         LazyColumn(
             modifier = Modifier.weight(1f),
+            state = listState
         ) {
 
             stickyHeader {

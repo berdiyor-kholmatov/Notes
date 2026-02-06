@@ -5,37 +5,36 @@ import androidx.lifecycle.viewModelScope
 import androidx.paging.cachedIn
 import com.example.listofnotes.repo.notesRepo.NotesRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
-import javax.inject.Inject
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 @HiltViewModel
-class ListViewModel @Inject constructor (
+class ListViewModel @Inject constructor(
     private val repository: NotesRepository
 ) : ViewModel() {
 
-    val notes = repository.observePaginatedNotes().cachedIn(viewModelScope)
-    private val _state = MutableStateFlow(ListViewState())
+
+    private val _state = MutableStateFlow(ListViewState()).also {
+        it.update {
+            it.copy(
+                notes = repository.observePaginatedNotes().cachedIn(viewModelScope)
+            )
+        }
+    }
     val state = _state.asStateFlow()
 
-//    init {
-//        repository.observeNoteTitles().onEach {
-//                _state.value = _state.value.copy(
-//                    notes = it
-//                )
-//            }.launchIn(viewModelScope)
-//    }
 
-    fun onEvent(event: ListEvent){
-        when(event) {
+    fun onEvent(event: ListEvent) {
+        when (event) {
             is ListEvent.DeleteButtonClicked -> {
                 viewModelScope.launch {
                     repository.deleteNote(event.noteId)
                 }
             }
+
             is ListEvent.IsDoneButtonClicked -> {
                 viewModelScope.launch {
                     val note = repository.getCurrentValueOfNoteById(event.noteId)
@@ -44,7 +43,6 @@ class ListViewModel @Inject constructor (
 
             }
         }
-
 
 
     }
